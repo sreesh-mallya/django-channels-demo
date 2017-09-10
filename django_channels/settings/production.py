@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 import dj_database_url
+import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -73,15 +74,16 @@ WSGI_APPLICATION = 'django_channels.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+db_from_env = dj_database_url.config()
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': db_from_env
 }
 
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+
+logging.debug(db_from_env)
+print(db_from_env)
+
 # DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
