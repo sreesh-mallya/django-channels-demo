@@ -1,0 +1,59 @@
+{% extends "base.html" %} 
+
+{% block content %} 
+{% load staticfiles %}
+<div class="">
+    <div class="row">
+        <div class="col-lg-3 container">
+            <h1>{{ room.label }}</h1>
+            <small>Anyone with this URL can join this chat room.<br>
+                <span class="text-info">{{ request.scheme }}://{{ request.get_host }}/{{ room.label }}</span><br>
+                Just enter a name, and start chatting!
+            </small>
+            <br><br>
+            <div class="alert alert-dismissible alert-danger" id="error">
+  				<button type="button" class="close" data-dismiss="alert">&times;</button>
+  				Enter a <strong>name</strong>, mate. (Oh come on! Any name would do!)
+			</div>
+            <div class="form-group">
+                <label for="handle">Your name:</label>
+                <input class="form-control" id="handle" type="text" placeholder="Name" maxlength="15">
+            </div>
+        </div>
+        <div class="col-lg-9 container">
+            <form id="chatform">
+                <h4>Messages</h4>
+                <hr>
+                <div style="overflow-y: auto; max-height: 400px;" id="messages">
+                    <table id="chat" class="table table-hover">
+                        <tbody>
+                            {% for message in messages %}
+                            <tr>
+                                <td width="150">{{ message.formatted_timestamp }}</td>
+                                <td>{{ message.handle }}</td>
+                                <td>{{ message.message }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="message">Say something:</label>
+                    <div class="input-group">
+                        <input class="form-control" id="message" type="text" placeholder="Message" minlength="1" required>
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="submit" id="go">Say it</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %} 
+
+{% block scripts %}
+<script type="text/javascript" src='{% static "scripts/reconnecting-websocket.min.js" %}'></script>
+<script type="text/javascript" src='{% static "scripts/chat.js" %}'></script>
+{% endblock scripts %}

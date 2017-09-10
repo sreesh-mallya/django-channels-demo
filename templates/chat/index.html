@@ -1,0 +1,27 @@
+{% extends "base.html" %} 
+
+{% block content %}
+{% load staticfiles %}
+<div class="jumbotron">
+    <h1>Django Channels Demo</h1>
+    <br>
+    <p>This is just a demo Django Channels and WebSocket based Slack-ish chat room project (could say it's a fork of
+        <a href="https://github.com/jacobian/channels-example">this</a> one). Check out the full code on GitHub,
+        or to get started, just enter a chat room name (or leave it blank to auto-generate) to create a chat room, or join one whose
+        name you know.
+    </p>
+    <form id="room">
+        <div class="form-group">
+            <input type="text" class="form-control" id="channel_name" placeholder="Room name here...">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Create/join chat room</button>
+        </div>
+    </form> 
+    <br>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+<script type="text/javascript" src="{% static 'scripts/index.js' %}"></script>
+{% endblock scripts %}
