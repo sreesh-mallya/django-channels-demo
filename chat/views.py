@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import slugify
-import haikunator
+from haikunator import Haikunator
 from .models import Room
 
 
@@ -17,6 +17,7 @@ def new_room(request):
     new_room = None
     while not new_room:
         with transaction.atomic():
+            haikunator = Haikunator()
             label = haikunator.haikunate()
             if Room.objects.filter(label=label).exists():
                 continue
