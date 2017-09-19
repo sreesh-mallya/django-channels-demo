@@ -80,10 +80,6 @@ DATABASES = {
     'default': db_from_env
 }
 
-
-logging.debug(db_from_env)
-print(db_from_env)
-
 # DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
@@ -132,11 +128,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "asgi_ipc.IPCChannelLayer",
-        "ROUTING": "django_channels.routing.channel_routing",
+        "BACKEND": "asgi_redis.RedisChannelLayer",
         "CONFIG": {
-            "prefix": "django_channels",
+            "hosts": [("localhost", 6379)],
         },
+        "ROUTING": "django_channels.routing.channel_routing",
     },
 }
 
